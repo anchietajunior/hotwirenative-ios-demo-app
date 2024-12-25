@@ -6,6 +6,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import dev.hotwire.core.config.Hotwire
+import dev.hotwire.core.turbo.config.PathConfiguration
 import dev.hotwire.navigation.activities.HotwireActivity
 import dev.hotwire.navigation.navigator.NavigatorConfiguration
 
@@ -13,6 +15,8 @@ class MainActivity : HotwireActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        configureApp()
 
         WebView.setWebContentsDebuggingEnabled(true)
     }
@@ -24,4 +28,14 @@ class MainActivity : HotwireActivity() {
             navigatorHostId = R.id.main_nav_host
         )
     )
+
+    private fun configureApp() {
+        // Loads the path configuration
+        Hotwire.loadPathConfiguration(
+            context = this,
+            location = PathConfiguration.Location(
+                assetFilePath = "configuration.json"
+            )
+        )
+    }
 }
